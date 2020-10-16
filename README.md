@@ -17,6 +17,8 @@ composer require deviddev/billingo-api-v3-wrapper
 
 ## Usage
 
+publish config
+
 ``` php
 // Usage description here
 ```
