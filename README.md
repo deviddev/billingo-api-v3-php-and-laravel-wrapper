@@ -210,6 +210,8 @@ BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 
 ### Testing
 
+First set up your Billingo API V3 Key.
+
 Linux, MAC OS
 ```
 $ ./vendor/bin/phpunit
