@@ -127,26 +127,6 @@ class BillingoApiV3Wrapper
     }
 
     /**
-     * Mapping array and if it's conatins object convert it to array because swagger return mixed object and arrays
-     *
-     * @param array $item
-     *
-     * @return array
-     */
-    protected function toArray(array $item): array
-    {
-        return \array_map(function ($item) {
-            if (\is_object($item)) {
-                return Arr::collapse((array)$item);
-            }
-            if (\is_array($item)) {
-                return $this->toArray($item);
-            }
-            return $item;
-        }, $item);
-    }
-
-    /**
      * Make a new api instace
      *
      * @param string $name
