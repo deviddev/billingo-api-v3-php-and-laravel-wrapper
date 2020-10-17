@@ -213,6 +213,16 @@ class BillingoApiV3Wrapper
     }
 
     /**
+     * Get id from response
+     *
+     * @return integer
+     */
+    public function getId(): ?int
+    {
+        return $this->response['id'];
+    }
+
+    /**
      * Get repsonse
      *
      * @return Array
