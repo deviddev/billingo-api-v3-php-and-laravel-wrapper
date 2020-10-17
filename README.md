@@ -68,8 +68,13 @@ Get Billingo API response:
 BillingoApiV3Wrapper::getResponse();
 ```
 
+Get Billingo API response id (eg.: partner id, invoice id, etc.):
+``` php
+BillingoApiV3Wrapper::getId();
+```
+
 ##### Method chaining:
-All pulic methods are chainable, except **getResponse()** method.
+All pulic methods are chainable, except **getResponse()** and **getId()** methods.
 If you don't add some data to ``` model(string $modelName, array $data = null) ``` method second ``` array $data = null ``` parameter, you must use ``` make(array $data) ``` method before ``` model() ``` method, see in examples.
 
 ### Examples
@@ -91,16 +96,30 @@ $partner = [
 ];
 ```
 
-Create partner:
+Create partner and get response:
 ``` php
 BillingoApi::api('Partner')->model('PartnerUpsert', $partner)->create()->getResponse();
 ```
 
 OR
 
-Create partner with make:
+Create partner with make and get response:
 ``` php
 BillingoApi::api('Partner')->make($partner)->model('PartnerUpsert')->create()->getResponse();
+```
+
+OR
+
+Create partner and get partner id:
+``` php
+BillingoApi::api('Partner')->model('PartnerUpsert', $partner)->create()->getId();
+```
+
+OR
+
+Create partner with make and get partner id:
+``` php
+BillingoApi::api('Partner')->make($partner)->model('PartnerUpsert')->create()->getId();
 ```
 
 **Update partner example:**
@@ -120,16 +139,30 @@ $partner = [
 ];
 ```
 
-Update partner:
+Update partner and get response:
 ``` php
 BillingoApi::api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getResponse();
 ```
 
 OR
 
-Update partner with make:
+Update partner with make and get response:
 ``` php
 BillingoApi::api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getResponse();
+```
+
+OR
+
+Update partner and get partner id:
+``` php
+BillingoApi::api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getId();
+```
+
+OR
+
+Update partner with make and get partner id:
+``` php
+BillingoApi::api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getId();
 ```
 
 **Create invoice example:**
@@ -171,23 +204,44 @@ $invoice = [
 ];
 ```
 
-Create invoice:
+Create invoice and get response:
 ``` php
 BillingoApi::api('Document')->model('DocumentInsert', $invoice)->create()->getResponse();
 ```
 
 OR
 
-Create invoice with make:
+Create invoice with make and get response:
 ``` php
 BillingoApi::api('Document')->make($invoice)->model('DocumentInsert')->create()->getResponse();
+```
+
+OR
+
+Create invoice and get invoice id:
+``` php
+BillingoApi::api('Document')->model('DocumentInsert', $invoice)->create()->getId();
+```
+
+OR
+
+Create invoice with make and get invoice id:
+``` php
+BillingoApi::api('Document')->make($invoice)->model('DocumentInsert')->create()->getId();
 ```
 
 **Download invoice example:**
 
 Default path is: ``` ./storage/app/invoices ```
+
 Default extension is: ``` .pdf ```
+
 File name is invoice id.
+
+Return the path in the response, eg.:
+``` php
+path: "invoices/11246867.pdf"
+```
 
 Download invoice:
 ``` php
@@ -202,6 +256,13 @@ BillingoApi::api('Document')->downloadInvoice(INVOICE_ID, 'PATH', 'EXTENSION')->
 ```
 
 **Send invoice in e-mail example:**
+
+Return the e-mails array where to send the invoce, eg.:
+``` php
+emails: [
+    "kiss@kft.hu"
+]
+```
 
 Send invoice:
 ``` php
