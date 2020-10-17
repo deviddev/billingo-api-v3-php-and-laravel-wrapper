@@ -2,6 +2,8 @@
 
 This is a simple Laravel wrapper for Billingo (billingo.hu) API V3 SwaggerHUB PHP SDK.
 
+Compatible with: Laravel 6.x (LTS), Laravel 7.x and Laravel 8.x
+
 ## Installation
 
 You can install the package via composer:
@@ -53,17 +55,16 @@ BillingoApiV3Wrapper::update(int $id);
 
 Download invoice to server:
 ``` php
-BillingoApiV3Wrapper::downloadInvoice(int $id, string $path = null, string $extension = null);
+BillingoApiV3Wrapper::downloadInvoice(int $invoiceId, string $path = null, string $extension = null);
 ```
 
 Send invoice in email:
 ``` php
-BillingoApiV3Wrapper::downloadInvoice(int $id, string $path = null, string $extension = null);
+BillingoApiV3Wrapper::sendInvoice(int $invoiceId);
 ```
 
 Get Billingo API response:
 ``` php
-// @return Array
 BillingoApiV3Wrapper::getResponse();
 ```
 
@@ -202,7 +203,7 @@ BillingoApi::api('Document')->downloadInvoice(INVOICE_ID, 'PATH', 'EXTENSION')->
 
 **Send invoice in e-mail example:**
 
-Download invoice:
+Send invoice:
 ``` php
 BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 ```
