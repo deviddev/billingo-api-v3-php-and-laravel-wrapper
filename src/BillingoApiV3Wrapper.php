@@ -209,15 +209,9 @@ class BillingoApiV3Wrapper
      */
     public function getResponse(): array
     {
-        if (\is_object($this->response)) {
-            return Arr::collapse($this->toArray((array)$this->response));
-        }
+        $response = \json_decode(\json_encode((array)$this->response), TRUE);
 
-        if (\is_array($this->response)) {
-            return $this->toArray($this->response);
-        }
-
-        return $this->response;
+        return count($response) == count($response, COUNT_RECURSIVE) ? $response : Arr::collapse($response);
     }
 
     /**
