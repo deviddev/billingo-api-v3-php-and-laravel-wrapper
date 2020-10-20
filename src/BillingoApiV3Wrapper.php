@@ -254,7 +254,7 @@ class BillingoApiV3Wrapper
 
         $this->methodExists($methodName);
 
-        $this->response = $this->api->$methodName($this->model, $page, $per_page);
+        $this->response = $this->api->$methodName($page, $per_page);
 
         return $this;
     }
