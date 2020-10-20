@@ -127,6 +127,26 @@ class BillingoApiV3Wrapper
     }
 
     /**
+     * Mapping array and if it's conatins object convert it to array because swagger return mixed object and arrays
+     *
+     * @param array $item
+     *
+     * @return array
+     */
+    protected function toArray(array $item): array
+    {
+        return \array_map(function ($item) {
+            if (\is_object($item)) {
+                return Arr::collapse((array)$item);
+            }
+            if (\is_array($item)) {
+                return $this->toArray($item);
+            }
+            return $item;
+        }, $item);
+    }
+
+    /**
      * Make a new api instace
      *
      * @param string $name
@@ -209,9 +229,34 @@ class BillingoApiV3Wrapper
      */
     public function getResponse(): array
     {
-        $response = \json_decode(\json_encode((array)$this->response), TRUE);
+        if (\is_object($this->response)) {
+            return Arr::collapse($this->toArray((array)$this->response));
+        }
 
-        return count($response) == count($response, COUNT_RECURSIVE) ? $response : Arr::collapse($response);
+        if (\is_array($this->response)) {
+            return $this->toArray($this->response);
+        }
+
+        return (array)$this->response;
+    }
+
+    /**
+     * Call list$apiName method
+     *
+     * @param integer $page
+     * @param integer $per_page
+     *
+     * @return self
+     */
+    public function list(int $page = null, int $per_page = 25): self
+    {
+        $methodName = 'list' . $this->apiName;
+
+        $this->methodExists($methodName);
+
+        $this->response = $this->api->$methodName($this->model, $page, $per_page);
+
+        return $this;
     }
 
     /**
