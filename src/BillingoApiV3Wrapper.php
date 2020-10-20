@@ -243,18 +243,30 @@ class BillingoApiV3Wrapper
     /**
      * Call list$apiName method
      *
-     * @param integer $page
-     * @param integer $per_page
+     * @param array $conditions
      *
      * @return self
      */
-    public function list(int $page = null, int $per_page = 25): self
+    public function list(array $conditions): self
     {
         $methodName = 'list' . $this->apiName;
 
         $this->methodExists($methodName);
 
-        $this->response = $this->api->$methodName($page, $per_page);
+        $this->response = $this->api->$methodName(
+            $conditions['page'] ?? null,
+            $conditions['per_page'] ?? 25,
+            $conditions['block_id'] ?? null,
+            $conditions['partner_id'] ?? null,
+            $conditions['payment_method'] ?? null,
+            $conditions['payment_status'] ?? null,
+            $conditions['start_date'] ?? null,
+            $conditions['end_date'] ?? null,
+            $conditions['start_number'] ?? null,
+            $conditions['end_number'] ?? null,
+            $conditions['start_year'] ?? null,
+            $conditions['end_year'] ?? null
+        );
 
         return $this;
     }
