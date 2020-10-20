@@ -53,6 +53,12 @@ Update model (call api class method with model instance and model id):
 BillingoApiV3Wrapper::update(int $id);
 ```
 
+List model (call api class method with model instance):
+``` php
+BillingoApiV3Wrapper::list(array $conditions);
+```
+*** All conditions is optional!
+
 Download invoice to server:
 ``` php
 BillingoApiV3Wrapper::downloadInvoice(int $invoiceId, string $path = null, string $extension = null);
@@ -228,6 +234,58 @@ OR
 Create invoice with make and get invoice id:
 ``` php
 BillingoApi::api('Document')->make($invoice)->model('DocumentInsert')->create()->getId();
+```
+
+**List invoices, partners, blocks, etc example:**
+
+List invoices:
+``` php
+BillingoApi::api('Document')->list([
+    'page' => 1,
+    'page' => 25,
+    'block_id' => 42432,
+    'partner_id' => 13123123,
+    'payment_method' => 'cash',
+    'payment_status' => 'paid',
+    'start_date'] => '2020-05-10',
+    'end_date' => '2020-05-15',
+    'start_number' => '1',
+    'end_number' => '10',
+    'start_year' => 2020,
+    'end_year'] => 2020
+])->getResponse();
+```
+
+List partners:
+``` php
+BillingoApi::api('Partner')->list([
+    'page' => 1,
+    'per_page' => 5
+])->getResponse();
+```
+
+List blocks:
+``` php
+BillingoApi::api('DocumentBlock')->list([
+    'page' => 1,
+    'per_page' => 5
+])->getResponse();
+```
+
+List banks accounts:
+``` php
+BillingoApi::api('BankAccount')->list([
+    'page' => 1,
+    'per_page' => 5
+])->getResponse();
+```
+
+List products:
+``` php
+BillingoApi::api('Products')->list([
+    'page' => 1,
+    'per_page' => 5
+])->getResponse();
 ```
 
 **Download invoice example:**
