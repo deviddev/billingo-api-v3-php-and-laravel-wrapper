@@ -69,6 +69,11 @@ Send invoice in email:
 BillingoApiV3Wrapper::sendInvoice(int $invoiceId);
 ```
 
+Get invoice public url response:
+``` php
+BillingoApiV3Wrapper::getPublicUrl(int $id);
+```
+
 Get Billingo API response:
 ``` php
 BillingoApiV3Wrapper::getResponse();
@@ -325,6 +330,20 @@ emails: [
 Send invoice:
 ``` php
 BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
+```
+
+**Get invoice publi url example:**
+
+Return the e-mails array where to send the invoce, eg.:
+``` php
+emails: [
+    "kiss@kft.hu"
+]
+```
+
+Get invoice public url:
+``` php
+BillingoApi::api('Document')->getPublicUrl(INVOICE_ID)->getResponse();
 ```
 
 ### Testing
