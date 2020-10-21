@@ -334,7 +334,7 @@ BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 
 **Get invoice public url example:**
 
-Return the e-mails array where to send the invoce, eg.:
+Return the public url array, eg.:
 ``` php
 [
     public_url: "https://api.billingo.hu/document-access/K3drE0Gvb2eRwQNYlypfasdOlJADB4Y"
