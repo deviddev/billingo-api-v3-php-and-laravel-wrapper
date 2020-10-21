@@ -346,6 +346,24 @@ class BillingoApiV3Wrapper
     }
 
     /**
+     * Delete the invoice
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function cancelInvoice(int $id): self
+    {
+        $methodName = 'cancel' . $this->apiName;
+
+        $this->methodExists($methodName);
+
+        $this->response = $this->api->$methodName($id);
+
+        return $this;
+    }
+
+    /**
      * Send invoice in email
      *
      * @param integer $id
