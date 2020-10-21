@@ -332,12 +332,12 @@ Send invoice:
 BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 ```
 
-**Get invoice publi url example:**
+**Get invoice public url example:**
 
 Return the e-mails array where to send the invoce, eg.:
 ``` php
-emails: [
-    "kiss@kft.hu"
+[
+    public_url: "https://api.billingo.hu/document-access/K3drE0Gvb2eRwQNYlypfasdOlJADB4Y"
 ]
 ```
 
