@@ -362,4 +362,40 @@ class BillingoApiV3Wrapper
 
         return $this;
     }
+
+    /**
+     * Create invoice from proforma
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function createInvoiceFromProforma(int $id): self
+    {
+        $methodName = 'createDocumentFromProforma';
+
+        $this->methodExists($methodName);
+
+        $this->response = $this->api->$methodName($id);
+
+        return $this;
+    }
+
+    /**
+     * Check valid tax number
+     *
+     * @param string $tax_number
+     *
+     * @return self
+     */
+    public function checkTaxNumber(string $tax_number): self
+    {
+        $methodName = 'checkTaxNumber';
+
+        $this->methodExists($methodName);
+
+        $this->response = $this->api->$methodName($tax_number);
+
+        return $this;
+    }
 }
