@@ -223,6 +223,24 @@ class BillingoApiV3Wrapper
     }
 
     /**
+     * Get invoice public url
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function getPublicUrl(int $id): self
+    {
+        $methodName = 'getPublicUrl';
+
+        $this->methodExists($methodName);
+
+        $this->response = $this->api->$methodName($id);
+
+        return $this;
+    }
+
+    /**
      * Get repsonse
      *
      * @return Array
