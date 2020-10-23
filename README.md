@@ -391,9 +391,22 @@ Linux, MAC OS
 $ ./vendor/bin/phpunit
 ```
 
+OR
+
+```
+$ composer test
+```
+
+
 Windows
 ```
 $ vendor\bin\phpunit
+```
+
+OR
+
+```
+$ composer test-win
 ```
 
 ## Contributing
