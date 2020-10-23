@@ -43,6 +43,11 @@ class ExampleTest extends TestCase
         'taxcode' => '',
     ];
 
+    /**
+     * Hold billingoApi instance
+     *
+     * @var object
+     */
     protected $billingoApi;
 
     /**
@@ -68,6 +73,11 @@ class ExampleTest extends TestCase
         return [BillingoApiV3WrapperServiceProvider::class];
     }
 
+    /**
+     * Set up variables
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->billingoApi = new Billingo();
