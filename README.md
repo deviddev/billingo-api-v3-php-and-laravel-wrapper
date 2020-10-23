@@ -53,6 +53,21 @@ Update model (call api class method with model instance and model id):
 BillingoApiV3Wrapper::update(int $id);
 ```
 
+Cancel invoice:
+``` php
+BillingoApiV3Wrapper::cancelInvoice(int $invoiceId);
+```
+
+Create invoice from proforma invoice:
+``` php
+BillingoApiV3Wrapper::createInvoiceFromProforma(int $invoiceId);
+```
+
+Check tax number:
+``` php
+BillingoApiV3Wrapper::checkTaxNumber(string $taxNumber);
+```
+
 List model (call api class method with model instance):
 ``` php
 BillingoApiV3Wrapper::list(array $conditions);
@@ -344,6 +359,27 @@ Return the public url array, eg.:
 Get invoice public url:
 ``` php
 BillingoApi::api('Document')->getPublicUrl(INVOICE_ID)->getResponse();
+```
+
+**Cancel invoice example:**
+
+Cancel invoice:
+``` php
+BillingoApi::api('Document')->cancelInvoice(INVOICE_ID)->getResponse();
+```
+
+**Create invoice from proforma invoice example:**
+
+Cancel invoice:
+``` php
+BillingoApi::api('Document')->createInvoiceFromProforma(INVOICE_ID)->getResponse();
+```
+
+**Check tax number example:**
+
+Check tax number:
+``` php
+BillingoApi::api('Util')->checkTaxNumber('tax_number')->getResponse();
 ```
 
 ### Testing
