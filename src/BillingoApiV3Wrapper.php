@@ -195,13 +195,13 @@ class BillingoApiV3Wrapper
      *
      * @return self
      */
-    public function checkTaxNumber(string $tax_number): self
+    public function checkTaxNumber(string $taxNumber): self
     {
         $methodName = 'checkTaxNumber';
 
         $this->methodExists($methodName);
 
-        $this->response = $this->api->$methodName($tax_number);
+        $this->response = $this->api->$methodName($taxNumber);
 
         return $this;
     }
