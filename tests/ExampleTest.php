@@ -43,6 +43,8 @@ class ExampleTest extends TestCase
         'taxcode' => '',
     ];
 
+    protected $billingoApi;
+
     /**
      * Set up partner id accross tests
      *
@@ -66,6 +68,11 @@ class ExampleTest extends TestCase
         return [BillingoApiV3WrapperServiceProvider::class];
     }
 
+    protected function setUp(): void
+    {
+        $this->billingoApi = new Billingo();
+    }
+
     /**
      * Test that partner create contains partner id
      *
@@ -73,8 +80,7 @@ class ExampleTest extends TestCase
      */
     public function testPartnerApiCreateContainsId(): void
     {
-        $billingoApi = new Billingo();
-        $billingoApi = $billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->create()->getId();
+        $billingoApi = $this->billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->create()->getId();
 
         $partnerId = &$this->getPartnerId();
 
@@ -90,8 +96,7 @@ class ExampleTest extends TestCase
      */
     public function testPartnerApiCreateResponseContainsPartner(): void
     {
-        $billingoApi = new Billingo();
-        $billingoApi = $billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->create()->getResponse();
+        $billingoApi = $this->billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->create()->getResponse();
 
         $this->assertContains('Test Company', $billingoApi);
     }
@@ -105,8 +110,7 @@ class ExampleTest extends TestCase
     {
         $partnerId = &$this->getPartnerId();
 
-        $billingoApi = new Billingo();
-        $billingoApi = $billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->update($partnerId)->getId();
+        $billingoApi = $this->billingoApi->api('Partner')->model('PartnerUpsert', $this->partner)->update($partnerId)->getId();
 
         $this->assertIsInt($billingoApi);
     }
@@ -120,8 +124,7 @@ class ExampleTest extends TestCase
     {
         $partnerId = &$this->getPartnerId();
 
-        $billingoApi = new Billingo();
-        $billingoApi = $billingoApi->api('Partner')->model('PartnerUpsert', $this->partnerUpdate)->update($partnerId)->getResponse();
+        $billingoApi = $this->billingoApi->api('Partner')->model('PartnerUpsert', $this->partnerUpdate)->update($partnerId)->getResponse();
 
         $this->assertContains('Test Company updated', $billingoApi);
     }
