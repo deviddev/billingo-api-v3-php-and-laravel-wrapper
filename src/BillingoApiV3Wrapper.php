@@ -127,6 +127,23 @@ class BillingoApiV3Wrapper
     }
 
     /**
+     * Set callable method name
+     *
+     * @param string $name
+     * @param boolean $suffix
+     *
+     * @return string
+     */
+    protected function setMethodName(string $name, bool $suffix = false): string
+    {
+        $methodName = $name . ($suffix ? $this->apiName : '');
+
+        $this->methodExists($methodName);
+
+        return $methodName;
+    }
+
+    /**
      * Mapping array and if it's conatins object convert it to array because swagger return mixed object and arrays
      *
      * @param array $item
@@ -179,9 +196,7 @@ class BillingoApiV3Wrapper
      */
     public function cancelInvoice(int $id): self
     {
-        $methodName = 'cancel' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('cancel', true);
 
         $this->response = $this->api->$methodName($id);
 
@@ -197,9 +212,7 @@ class BillingoApiV3Wrapper
      */
     public function checkTaxNumber(string $taxNumber): self
     {
-        $methodName = 'checkTaxNumber';
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('checkTaxNumber');
 
         $this->response = $this->api->$methodName($taxNumber);
 
@@ -214,9 +227,7 @@ class BillingoApiV3Wrapper
      */
     public function create(): self
     {
-        $methodName = 'create' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('create', true);
 
         $this->response = $this->api->$methodName($this->model);
 
@@ -232,9 +243,7 @@ class BillingoApiV3Wrapper
      */
     public function createInvoiceFromProforma(int $id): self
     {
-        $methodName = 'createDocumentFromProforma';
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('createDocumentFromProforma');
 
         $this->response = $this->api->$methodName($id);
 
@@ -250,9 +259,7 @@ class BillingoApiV3Wrapper
      */
     public function downloadInvoice(int $id, string $path = null, string $extension = null): self
     {
-        $methodName = 'download' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('download', true);
 
         $filename = $id . ($extension ?? $this->extension);
 
@@ -285,9 +292,7 @@ class BillingoApiV3Wrapper
      */
     public function getPublicUrl(int $id): self
     {
-        $methodName = 'getPublicUrl';
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('getPublicUrl');
 
         $this->response = $this->api->$methodName($id);
 
@@ -321,9 +326,7 @@ class BillingoApiV3Wrapper
      */
     public function list(array $conditions): self
     {
-        $methodName = 'list' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('list', true);
 
         $this->response = $this->api->$methodName(
             $conditions['page'] ?? null,
@@ -390,9 +393,7 @@ class BillingoApiV3Wrapper
      */
     public function update(int $id): self
     {
-        $methodName = 'update' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('update', true);
 
         $this->response = $this->api->$methodName($this->model, $id);
 
@@ -408,9 +409,7 @@ class BillingoApiV3Wrapper
      */
     public function sendInvoice(int $id): self
     {
-        $methodName = 'send' . $this->apiName;
-
-        $this->methodExists($methodName);
+        $methodName = $this->setMethodName('send', true);
 
         $this->response = $this->api->$methodName($id);
 
