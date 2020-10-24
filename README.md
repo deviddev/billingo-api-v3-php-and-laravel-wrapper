@@ -27,81 +27,104 @@ Import wrapper:
 use BillingoApiV3Wrapper as BillingoApi;
 ```
 
+### Available methods
+
 Make an api instance (eg.: BankAccount, Currency, Document, DocumentBlock, DocumentExport, Organization, Partner, Product, Util):
 ``` php
-BillingoApiV3Wrapper::api(string $apiName);
+BillingoApi::api(string $apiName);
 ```
 
 Add some data to model:
 ``` php
-BillingoApiV3Wrapper::make(array $data);
+BillingoApi::make(array $data);
 ```
 
 Make a model instance (eg: Address, BankAccount, Currency, Document, etc... - see in ./vendor/deviddev/billingo-api-v3-php-sdk/lib/model):
 ``` php
-BillingoApiV3Wrapper::model(string $modelName, array $data = null);
+BillingoApi::model(string $modelName, array $data = null);
 ```
 (if you don't want use **make()** method simply add necessary data as second parameter)
 
+With http info (get http info (headers, response code, etc...)):
+``` php
+BillingoApi::withHttpInfo();
+```
+
+Get invoice, partner, product(call api class method with model instance):
+``` php
+BillingoApi::get(int $id);
+```
+
+Delete partner, product (call api class method with model instance):
+``` php
+BillingoApi::delete(int $id);
+```
+
+Delete payment (call api class method with model instance):
+``` php
+BillingoApi::deletePayment(int $id);
+```
+
 Create model (call api class method with model instance):
 ``` php
-BillingoApiV3Wrapper::create();
+BillingoApi::create();
 ```
 
 Update model (call api class method with model instance and model id):
 ``` php
-BillingoApiV3Wrapper::update(int $id);
+BillingoApi::update(int $id);
 ```
 
 Cancel invoice:
 ``` php
-BillingoApiV3Wrapper::cancelInvoice(int $invoiceId);
+BillingoApi::cancelInvoice(int $invoiceId);
 ```
 
 Create invoice from proforma invoice:
 ``` php
-BillingoApiV3Wrapper::createInvoiceFromProforma(int $invoiceId);
+BillingoApi::createInvoiceFromProforma(int $invoiceId);
 ```
 
 Check tax number:
 ``` php
-BillingoApiV3Wrapper::checkTaxNumber(string $taxNumber);
+BillingoApi::checkTaxNumber(string $taxNumber);
 ```
 
 List model (call api class method with model instance):
 ``` php
-BillingoApiV3Wrapper::list(array $conditions);
+BillingoApi::list(array $conditions);
 ```
 *** All conditions is optional!
 
 Download invoice to server:
 ``` php
-BillingoApiV3Wrapper::downloadInvoice(int $invoiceId, string $path = null, string $extension = null);
+BillingoApi::downloadInvoice(int $invoiceId, string $path = null, string $extension = null);
 ```
 
 Send invoice in email:
 ``` php
-BillingoApiV3Wrapper::sendInvoice(int $invoiceId);
+BillingoApi::sendInvoice(int $invoiceId);
 ```
 
 Get invoice public url response:
 ``` php
-BillingoApiV3Wrapper::getPublicUrl(int $id);
+BillingoApi::getPublicUrl(int $id);
 ```
 
 Get Billingo API response:
 ``` php
-BillingoApiV3Wrapper::getResponse();
+BillingoApi::getResponse();
 ```
 
 Get Billingo API response id (eg.: partner id, invoice id, etc.):
 ``` php
-BillingoApiV3Wrapper::getId();
+BillingoApi::getId();
 ```
 
 ##### Method chaining:
 All pulic methods are chainable, except **getResponse()** and **getId()** methods.
-If you don't add some data to ``` model(string $modelName, array $data = null) ``` method second ``` array $data = null ``` parameter, you must use ``` make(array $data) ``` method before ``` model() ``` method, see in examples.
+If you don't add some data to ``` model(string $modelName, array $data = null) ``` method second ``` array $data = null ``` parameter, you **MUST** use ``` make(array $data) ``` method **BEFORE** ``` model() ``` method, see in examples.
+The ``` withHttpInfo() ``` method **MUST** be called **IMMEDIATELY AFTER** the ``` api() ```, ``` make() ``` or ``` model() ``` methods.
 
 ### Examples
 
@@ -380,6 +403,49 @@ BillingoApi::api('Document')->createInvoiceFromProforma(INVOICE_ID)->getResponse
 Check tax number:
 ``` php
 BillingoApi::api('Util')->checkTaxNumber('tax_number')->getResponse();
+```
+
+**Get invoice, product, partner example:**
+
+Get invoice:
+``` php
+BillingoApi::api('Document')->get(INVOICE_ID)->getResponse();
+```
+
+Get partner:
+``` php
+BillingoApi::api('Partner')->get(PARTNER_ID)->getResponse();
+```
+
+Get product:
+``` php
+BillingoApi::api('Product')->get(PRODUCT_ID)->getResponse();
+```
+
+**Delete product, partner example:**
+
+Get partner:
+``` php
+BillingoApi::api('Partner')->delete(PARTNER_ID)->getResponse();
+```
+
+Get product:
+``` php
+BillingoApi::api('Product')->get(PRODUCT_ID)->getResponse();
+```
+
+**Delete payment example:**
+
+Get partner:
+``` php
+BillingoApi::api('Partner')->deletePayment(PAYMENT_ID)->getResponse();
+```
+
+**With http info example:**
+
+With http info:
+``` php
+BillingoApi::api('Product')->withHttpInfo()->list(['page' => 1, 'per_page' => 5])->getResponse();
 ```
 
 ### Testing
