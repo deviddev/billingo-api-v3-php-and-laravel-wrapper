@@ -23,7 +23,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     protected $extension = '.pdf';
 
     /**
-     * Call the default configuration and set up api key
+     * Call parent constructor
      */
     public function __construct()
     {
