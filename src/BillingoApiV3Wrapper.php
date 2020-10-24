@@ -86,6 +86,20 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     }
 
     /**
+     * Delete delete$apiName method
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function delete(int $id): self
+    {
+        $this->createResponse('delete', [$id], true);
+
+        return $this;
+    }
+
+    /**
      * Download document
      *
      * @param integer $id
