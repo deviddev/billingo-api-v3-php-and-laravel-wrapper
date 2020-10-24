@@ -134,7 +134,14 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
         return $this;
     }
 
-    public function get(int $id)
+    /**
+     * Get get$apiName method
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function get(int $id): self
     {
         $this->createResponse('get', [$id], true);
 
