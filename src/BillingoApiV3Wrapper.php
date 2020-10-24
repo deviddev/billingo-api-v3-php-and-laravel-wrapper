@@ -100,6 +100,20 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     }
 
     /**
+     * Delete payment
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function deletePayment(int $id): self
+    {
+        $this->createResponse('deletePayment', [$id]);
+
+        return $this;
+    }
+
+    /**
      * Download document
      *
      * @param integer $id
