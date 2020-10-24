@@ -83,6 +83,27 @@ class BillingoApiV3Service
     }
 
     /**
+     * Create response
+     *
+     * @param string $methodName
+     * @param array $params
+     * @param boolean $customResponse
+     *
+     * @return void
+     */
+    protected function createResponse(string $methodName, array $params, bool $methodSuffix = false, bool $customResponse = false)
+    {
+        $this->response =
+            $customResponse ?: \call_user_func_array(
+                array(
+                    $this->api,
+                    $this->setMethodName($methodName, $methodSuffix)
+                ),
+                $params
+            );
+    }
+
+    /**
      * Check if data is present
      *
      * @param array $data

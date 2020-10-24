@@ -39,9 +39,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function cancelInvoice(int $id): self
     {
-        $methodName = $this->setMethodName('cancel', true);
-
-        $this->response = $this->api->$methodName($id);
+        $this->createResponse('cancel', [$id], true);
 
         return $this;
     }
@@ -55,9 +53,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function checkTaxNumber(string $taxNumber): self
     {
-        $methodName = $this->setMethodName('checkTaxNumber');
-
-        $this->response = $this->api->$methodName($taxNumber);
+        $this->createResponse('checkTaxNumber', [$taxNumber]);
 
         return $this;
     }
@@ -70,9 +66,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function create(): self
     {
-        $methodName = $this->setMethodName('create', true);
-
-        $this->response = $this->api->$methodName($this->model);
+        $this->createResponse('create', [$this->model], true);
 
         return $this;
     }
@@ -86,9 +80,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function createInvoiceFromProforma(int $id): self
     {
-        $methodName = $this->setMethodName('createDocumentFromProforma');
-
-        $this->response = $this->api->$methodName($id);
+        $this->createResponse('createDocumentFromProforma', [$id]);
 
         return $this;
     }
@@ -102,16 +94,14 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function downloadInvoice(int $id, string $path = null, string $extension = null): self
     {
-        $methodName = $this->setMethodName('download', true);
-
         $filename = $id . ($extension ?? $this->extension);
 
         Storage::put(
             ($path ?? $this->downloadPath) . $filename,
-            $this->api->$methodName($id)
+            $this->createResponse('download', [$id], true, true)
         );
 
-        $this->response['path'] = ($path ?? $this->downloadPath) . $filename;
+        $this->response = ['path' => ($path ?? $this->downloadPath) . $filename];
 
         return $this;
     }
@@ -125,9 +115,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function getPublicUrl(int $id): self
     {
-        $methodName = $this->setMethodName('getPublicUrl');
-
-        $this->response = $this->api->$methodName($id);
+        $this->createResponse('getPublicUrl', [$id]);
 
         return $this;
     }
@@ -141,21 +129,23 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function list(array $conditions): self
     {
-        $methodName = $this->setMethodName('list', true);
-
-        $this->response = $this->api->$methodName(
-            $conditions['page'] ?? null,
-            $conditions['per_page'] ?? 25,
-            $conditions['block_id'] ?? null,
-            $conditions['partner_id'] ?? null,
-            $conditions['payment_method'] ?? null,
-            $conditions['payment_status'] ?? null,
-            $conditions['start_date'] ?? null,
-            $conditions['end_date'] ?? null,
-            $conditions['start_number'] ?? null,
-            $conditions['end_number'] ?? null,
-            $conditions['start_year'] ?? null,
-            $conditions['end_year'] ?? null
+        $this->createResponse(
+            'list',
+            [
+                $conditions['page'] ?? null,
+                $conditions['per_page'] ?? 25,
+                $conditions['block_id'] ?? null,
+                $conditions['partner_id'] ?? null,
+                $conditions['payment_method'] ?? null,
+                $conditions['payment_status'] ?? null,
+                $conditions['start_date'] ?? null,
+                $conditions['end_date'] ?? null,
+                $conditions['start_number'] ?? null,
+                $conditions['end_number'] ?? null,
+                $conditions['start_year'] ?? null,
+                $conditions['end_year'] ?? null
+            ],
+            true
         );
 
         return $this;
@@ -170,9 +160,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function update(int $id): self
     {
-        $methodName = $this->setMethodName('update', true);
-
-        $this->response = $this->api->$methodName($this->model, $id);
+        $this->createResponse('update', [$this->model, $id], true);
 
         return $this;
     }
@@ -186,9 +174,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function sendInvoice(int $id): self
     {
-        $methodName = $this->setMethodName('send', true);
-
-        $this->response = $this->api->$methodName($id);
+        $this->createResponse('send', [$id], true);
 
         return $this;
     }
