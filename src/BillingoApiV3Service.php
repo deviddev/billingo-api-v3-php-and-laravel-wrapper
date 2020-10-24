@@ -59,6 +59,13 @@ class BillingoApiV3Service
     protected $response = null;
 
     /**
+     * Store with http info for methods
+     *
+     * @var boolean
+     */
+    protected $withHttpInfo = false;
+
+    /**
      * Call the default configuration and set up api key
      */
     protected function __construct()
@@ -143,7 +150,7 @@ class BillingoApiV3Service
      */
     protected function setMethodName(string $name, bool $suffix = false): string
     {
-        $methodName = $name . ($suffix ? $this->apiName : '');
+        $methodName = $name . ($suffix ? $this->apiName . ($this->withHttpInfo ? 'withHttpInfo' : '') : '');
 
         $this->methodExists($methodName);
 
@@ -256,6 +263,18 @@ class BillingoApiV3Service
         $this->isData();
 
         $this->model = new $this->modelClassName($this->data);
+
+        return $this;
+    }
+
+    /**
+     * Set withHttpInfo
+     *
+     * @return void
+     */
+    public function withHttpInfo()
+    {
+        $this->withHttpInfo = true;
 
         return $this;
     }
