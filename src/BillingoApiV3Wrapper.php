@@ -134,6 +134,13 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
         return $this;
     }
 
+    public function get(int $id)
+    {
+        $this->createResponse('get', [$id], true);
+
+        return $this;
+    }
+
     /**
      * Get invoice public url
      *
