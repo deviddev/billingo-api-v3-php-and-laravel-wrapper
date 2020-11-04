@@ -3,11 +3,14 @@
 namespace Deviddev\BillingoApiV3Wrapper\Services;
 
 use Exception;
+use Deviddev\BillingoApiV3Wrapper\Traits\ProcessErrorsTrait;
 use Illuminate\Support\Arr;
 use Swagger\Client\Configuration as SwaggerConfig;
 
 class BillingoApiV3Service
 {
+
+    use ProcessErrorsTrait;
 
     /**
      * Store called api instance
@@ -112,14 +115,19 @@ class BillingoApiV3Service
      */
     protected function createResponse(string $methodName, array $params, bool $methodSuffix = false, bool $customResponse = false)
     {
-        $this->response =
-            $customResponse ?: \call_user_func_array(
-                array(
-                    $this->api,
-                    $this->setMethodName($methodName, $methodSuffix)
-                ),
-                $params
-            );
+        try {
+            $this->response =
+                $customResponse ?: \call_user_func_array(
+                    array(
+                        $this->api,
+                        $this->setMethodName($methodName, $methodSuffix)
+                    ),
+                    $params
+                );
+        } catch (\Throwable $th) {
+            echo ($this->error($th->getMessage())->getJson());
+            exit;
+        }
 
         $this->setResponse();
     }
