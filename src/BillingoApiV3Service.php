@@ -108,6 +108,8 @@ class BillingoApiV3Service
                 ),
                 $params
             );
+
+        $this->setResponse();
     }
 
     /**
@@ -158,7 +160,25 @@ class BillingoApiV3Service
     }
 
     /**
-     * Mapping array and if it's conatins object convert it to array because swagger return mixed object and arrays
+     * Set response
+     *
+     * @return void
+     */
+    protected function setResponse(): void
+    {
+        if (\is_object($this->response)) {
+            $this->response = Arr::collapse($this->toArray((array)$this->response));
+        }
+
+        if (\is_array($this->response)) {
+            $this->response = $this->toArray($this->response);
+        }
+
+        $this->response = (array)$this->response;
+    }
+
+    /**
+     * Mapping array and if it's conatins object convert it to array because swagger return mixed arrays and objects with protected and private properties
      *
      * @param array $item
      *
@@ -218,15 +238,7 @@ class BillingoApiV3Service
      */
     public function getResponse(): array
     {
-        if (\is_object($this->response)) {
-            return Arr::collapse($this->toArray((array)$this->response));
-        }
-
-        if (\is_array($this->response)) {
-            return $this->toArray($this->response);
-        }
-
-        return (array)$this->response;
+        return $this->response;
     }
 
     /**
