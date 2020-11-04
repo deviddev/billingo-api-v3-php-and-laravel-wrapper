@@ -2,7 +2,7 @@
 
 namespace Deviddev\BillingoApiV3Wrapper;
 
-use Deviddev\BillingoApiV3Wrapper\BillingoApiV3Service;
+use Deviddev\BillingoApiV3Wrapper\Services\BillingoApiV3Service;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
