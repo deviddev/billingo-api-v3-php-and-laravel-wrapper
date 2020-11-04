@@ -1,6 +1,6 @@
 <?php
 
-namespace Deviddev\BillingoApiV3Wrapper;
+namespace Deviddev\BillingoApiV3Wrapper\Services;
 
 use Exception;
 use Illuminate\Support\Arr;
