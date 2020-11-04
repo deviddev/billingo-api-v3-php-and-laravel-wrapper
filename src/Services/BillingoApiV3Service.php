@@ -67,11 +67,13 @@ class BillingoApiV3Service
 
     /**
      * Call the default configuration and set up api key
+     *
+     * @param string $apiKey
      */
-    protected function __construct()
+    protected function __construct(string $apiKey = null)
     {
         $this->config = SwaggerConfig::getDefaultConfiguration()
-            ->setApiKey('X-API-KEY', config('billingo-api-v3-wrapper.api_key'));
+            ->setApiKey('X-API-KEY', $this->checkConfigHelperIsExists() ? config('billingo-api-v3-wrapper.api_key') : $apiKey);
     }
 
     /**
