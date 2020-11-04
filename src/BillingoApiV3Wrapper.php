@@ -24,10 +24,12 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
 
     /**
      * Call parent constructor
+     *
+     * @param string $apiKey
      */
-    public function __construct()
+    public function __construct(string $apiKey = null)
     {
-        parent::__construct();
+        parent::__construct($apiKey);
     }
 
     /**
