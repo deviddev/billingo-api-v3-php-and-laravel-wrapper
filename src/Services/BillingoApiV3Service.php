@@ -77,6 +77,16 @@ class BillingoApiV3Service
     }
 
     /**
+     * Check that config helper funcion is exists, this is laravel specific
+     *
+     * @return boolean
+     */
+    protected function checkConfigHelperIsExists(): bool
+    {
+        return \function_exists('config');
+    }
+
+    /**
      * Check if given class is exsits.
      *
      * @param string $className
