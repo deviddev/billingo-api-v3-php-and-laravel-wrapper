@@ -81,7 +81,7 @@ class ExampleTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->billingoApi = new Billingo('b1679ed6-b0a7-11ea-8593-0254eb6072a0');
+        $this->billingoApi = new Billingo('YOUR_API_V3_KEY');
     }
 
     /**
