@@ -125,10 +125,11 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     public function downloadInvoice(int $id, string $path = null, string $extension = null): self
     {
         $filename = $id . ($extension ?? $this->extension);
+        $this->createResponse('download', [$id], true);
 
         Storage::put(
             ($path ?? $this->downloadPath) . $filename,
-            $this->createResponse('download', [$id], true, true)
+            $this->response[0]
         );
 
         $this->response = ['path' => ($path ?? $this->downloadPath) . $filename];
