@@ -9,7 +9,6 @@
         "V3"
     ],
     "homepage": "https://github.com/deviddev/billingo-api-v3-wrapper",
-
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -19,13 +18,13 @@
         }
     ],
     "require": {
-        "php": "^7.1",
-        "illuminate/support": "^6|^7|^8",
+        "php": ">=7.4",
+        "illuminate/support": "^6|^8",
         "deviddev/billingo-api-v3-php-sdk": "^0.2"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^8.0"
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
