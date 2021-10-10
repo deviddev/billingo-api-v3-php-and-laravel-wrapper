@@ -2,15 +2,9 @@
 
 This is a simple Laravel (PHP) wrapper for Billingo (billingo.hu) API V3 SwaggerHUB PHP SDK.
 
-Compatible with: Laravel 6.x (LTS), Laravel 7.x and Laravel 8.x or PHP 7.0<
+Compatible with: Laravel 6.x (LTS), Laravel 8.x or PHP 7.4<=
 
-**You can use the wrapper freely with all type of PHP projects (not just Laravel) from 1.0.0 version without changing except downloadInvoice method.**
-
-## RoadMap
-
-v1.1
-- [ ] Implement or rewrite downloadInvoice for native PHP use.
-
+**You can use the wrapper easily with all type of PHP projects (not just Laravel) from 1.0.0 version without changing except downloadInvoice method.**
 
 # Installation
 
@@ -20,145 +14,163 @@ You can install the package via composer or just download it:
 composer require deviddev/billingo-api-v3-wrapper:^1.0
 ```
 
-
 # Usage
 
 ### Laravel
+
 Publish config file:
 
-`
-php artisan vendor:publish --provider=Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider
-`
+`php artisan vendor:publish --provider=Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider`
 
 **First set up your Billingo API V3 key in ./config/billingo-api-v3-wrapper.php config file.**
 
 Import wrapper with facade:
-``` php
+
+```php
 use BillingoApiV3Wrapper as BillingoApi;
 ```
 
 ### PHP
 
 Import wrapper:
-``` php
+
+```php
 use Deviddev\BillingoApiV3Wrapper\BillingoApiV3Wrapper as BillingoApi;
 ```
 
 You must add your api key to BillingoApi object constructor:
 
-``` php
+```php
 $billingoApi = new BillingoApi('YOUR_API_KEY_HERE');
 ```
-
 
 # Available methods
 
 Make an api instance (eg.: BankAccount, Currency, Document, DocumentBlock, DocumentExport, Organization, Partner, Product, Util):
-``` php
+
+```php
 api(string $apiName);
 ```
 
 Add some data to model:
-``` php
+
+```php
 make(array $data);
 ```
 
 Make a model instance (eg: Address, BankAccount, Currency, Document, etc... - see in ./vendor/deviddev/billingo-api-v3-php-sdk/lib/model):
-``` php
+
+```php
 model(string $modelName, array $data = null);
 ```
+
 (if you don't want use **make()** method simply add necessary data as second parameter)
 
 With http info (get http info (headers, response code, etc...)):
-``` php
+
+```php
 withHttpInfo();
 ```
 
 Get invoice, partner, product(call api class method with model instance):
-``` php
+
+```php
 get(int $id);
 ```
 
 Delete partner, product (call api class method with model instance):
-``` php
+
+```php
 delete(int $id);
 ```
 
 Delete payment (call api class method with model instance):
-``` php
+
+```php
 deletePayment(int $id);
 ```
 
 Create model (call api class method with model instance):
-``` php
+
+```php
 create();
 ```
 
 Update model (call api class method with model instance and model id):
-``` php
+
+```php
 update(int $id);
 ```
 
 Cancel invoice:
-``` php
+
+```php
 cancelInvoice(int $invoiceId);
 ```
 
 Create invoice from proforma invoice:
-``` php
+
+```php
 createInvoiceFromProforma(int $invoiceId);
 ```
 
 Check tax number:
-``` php
+
+```php
 checkTaxNumber(string $taxNumber);
 ```
 
 List model (call api class method with model instance):
-``` php
+
+```php
 list(array $conditions);
 ```
-*** All conditions is optional!
+
+\*\*\* All conditions is optional!
 
 Download invoice to server:
-``` php
+
+```php
 downloadInvoice(int $invoiceId, string $path = null, string $extension = null);
 ```
 
 Send invoice in email:
-``` php
+
+```php
 sendInvoice(int $invoiceId);
 ```
 
 Get invoice public url response:
-``` php
+
+```php
 getPublicUrl(int $id);
 ```
 
 Get Billingo API response:
-``` php
+
+```php
 getResponse();
 ```
 
 Get Billingo API response id (eg.: partner id, invoice id, etc.):
-``` php
+
+```php
 getId();
 ```
 
 ### Method chaining:
+
 All pulic methods are chainable, except **getResponse()** and **getId()** methods.
-If you don't add some data to ``` model(string $modelName, array $data = null) ``` method second ``` array $data = null ``` parameter, you **MUST** use ``` make(array $data) ``` method **BEFORE** ``` model() ``` method, see in examples.
-The ``` withHttpInfo() ``` method **MUST** be called **IMMEDIATELY AFTER** the ``` api() ```, ``` make() ``` or ``` model() ``` methods.
-
-
+If you don't add some data to `model(string $modelName, array $data = null)` method second `array $data = null` parameter, you **MUST** use `make(array $data)` method **BEFORE** `model()` method, see in examples.
+The `withHttpInfo()` method **MUST** be called **IMMEDIATELY AFTER** the `api()`, `make()` or `model()` methods.
 
 # Examples
-
 
 ### Create partner example:
 
 Partner array:
-``` php
+
+```php
 $partner = [
     'name' => 'Test Company',
     'address' => [
@@ -175,64 +187,72 @@ $partner = [
 #### Laravel
 
 Create partner and get response:
-``` php
+
+```php
 BillingoApi::api('Partner')->model('PartnerUpsert', $partner)->create()->getResponse();
 ```
 
 OR
 
 Create partner with make and get response:
-``` php
+
+```php
 BillingoApi::api('Partner')->make($partner)->model('PartnerUpsert')->create()->getResponse();
 ```
 
 OR
 
 Create partner and get partner id:
-``` php
+
+```php
 BillingoApi::api('Partner')->model('PartnerUpsert', $partner)->create()->getId();
 ```
 
 OR
 
 Create partner with make and get partner id:
-``` php
+
+```php
 BillingoApi::api('Partner')->make($partner)->model('PartnerUpsert')->create()->getId();
 ```
 
 #### PHP
 
 Create partner and get response:
-``` php
+
+```php
 $billingoApi->api('Partner')->model('PartnerUpsert', $partner)->create()->getResponse();
 ```
 
 OR
 
 Create partner with make and get response:
-``` php
+
+```php
 $billingoApi->api('Partner')->make($partner)->model('PartnerUpsert')->create()->getResponse();
 ```
 
 OR
 
 Create partner and get partner id:
-``` php
+
+```php
 $billingoApi->api('Partner')->model('PartnerUpsert', $partner)->create()->getId();
 ```
 
 OR
 
 Create partner with make and get partner id:
-``` php
+
+```php
 $billingoApi->api('Partner')->make($partner)->model('PartnerUpsert')->create()->getId();
 ```
-
 
 ### Update partner example:
 
 Partner array:
-``` php
+
+```php
 $partner = [
     'name' => 'Test Company updated',
     'address' => [
@@ -249,64 +269,72 @@ $partner = [
 #### Laravel
 
 Update partner and get response:
-``` php
+
+```php
 BillingoApi::api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getResponse();
 ```
 
 OR
 
 Update partner with make and get response:
-``` php
+
+```php
 BillingoApi::api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getResponse();
 ```
 
 OR
 
 Update partner and get partner id:
-``` php
+
+```php
 BillingoApi::api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getId();
 ```
 
 OR
 
 Update partner with make and get partner id:
-``` php
+
+```php
 BillingoApi::api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getId();
 ```
 
 #### PHP
 
 Update partner and get response:
-``` php
+
+```php
 $billingoApi->api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getResponse();
 ```
 
 OR
 
 Update partner with make and get response:
-``` php
+
+```php
 $billingoApi->api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getResponse();
 ```
 
 OR
 
 Update partner and get partner id:
-``` php
+
+```php
 $billingoApi->api('Partner')->model('Partner', $partner)->update('BILLINGO_PARTNER_ID')->getId();
 ```
 
 OR
 
 Update partner with make and get partner id:
-``` php
+
+```php
 $billingoApi->api('Partner')->make($partner)->model('Partner')->update('BILLINGO_PARTNER_ID')->getId();
 ```
-
 
 ### Create invoice example:
 
 Invoice array:
-``` php
+
+```php
 $invoice = [
     'partner_id' => BILLINGO_PARTNER_ID, // REQUIRED int
     'block_id' => YOUR_BILLINGO_BLOCK_ID, // REQUIRED int
@@ -345,56 +373,64 @@ $invoice = [
 #### Laravel
 
 Create invoice and get response:
-``` php
+
+```php
 BillingoApi::api('Document')->model('DocumentInsert', $invoice)->create()->getResponse();
 ```
 
 OR
 
 Create invoice with make and get response:
-``` php
+
+```php
 BillingoApi::api('Document')->make($invoice)->model('DocumentInsert')->create()->getResponse();
 ```
 
 OR
 
 Create invoice and get invoice id:
-``` php
+
+```php
 BillingoApi::api('Document')->model('DocumentInsert', $invoice)->create()->getId();
 ```
 
 OR
 
 Create invoice with make and get invoice id:
-``` php
+
+```php
 BillingoApi::api('Document')->make($invoice)->model('DocumentInsert')->create()->getId();
 ```
 
 #### PHP
 
 Create invoice and get response:
-``` php
+
+```php
 $billingo->api('Document')->model('DocumentInsert', $invoice)->create()->getResponse();
 ```
 
 OR
 
 Create invoice with make and get response:
-``` php
+
+```php
 $billingo->api('Document')->make($invoice)->model('DocumentInsert')->create()->getResponse();
 ```
 
 OR
 
 Create invoice and get invoice id:
-``` php
+
+```php
 $billingo->api('Document')->model('DocumentInsert', $invoice)->create()->getId();
 ```
 
 OR
 
 Create invoice with make and get invoice id:
-``` php
+
+```php
 $billingo->api('Document')->make($invoice)->model('DocumentInsert')->create()->getId();
 ```
 
@@ -403,7 +439,8 @@ $billingo->api('Document')->make($invoice)->model('DocumentInsert')->create()->g
 #### Laravel
 
 List invoices:
-``` php
+
+```php
 BillingoApi::api('Document')->list([
     'page' => 1,
     'page' => 25,
@@ -421,7 +458,8 @@ BillingoApi::api('Document')->list([
 ```
 
 List partners:
-``` php
+
+```php
 BillingoApi::api('Partner')->list([
     'page' => 1,
     'per_page' => 5
@@ -429,7 +467,8 @@ BillingoApi::api('Partner')->list([
 ```
 
 List blocks:
-``` php
+
+```php
 BillingoApi::api('DocumentBlock')->list([
     'page' => 1,
     'per_page' => 5
@@ -437,7 +476,8 @@ BillingoApi::api('DocumentBlock')->list([
 ```
 
 List banks accounts:
-``` php
+
+```php
 BillingoApi::api('BankAccount')->list([
     'page' => 1,
     'per_page' => 5
@@ -445,7 +485,8 @@ BillingoApi::api('BankAccount')->list([
 ```
 
 List products:
-``` php
+
+```php
 BillingoApi::api('Products')->list([
     'page' => 1,
     'per_page' => 5
@@ -455,7 +496,8 @@ BillingoApi::api('Products')->list([
 #### PHP
 
 List invoices:
-``` php
+
+```php
 $billingoApi->api('Document')->list([
     'page' => 1,
     'page' => 25,
@@ -473,7 +515,8 @@ $billingoApi->api('Document')->list([
 ```
 
 List partners:
-``` php
+
+```php
 $billingoApi->api('Partner')->list([
     'page' => 1,
     'per_page' => 5
@@ -481,7 +524,8 @@ $billingoApi->api('Partner')->list([
 ```
 
 List blocks:
-``` php
+
+```php
 $billingoApi->api('DocumentBlock')->list([
     'page' => 1,
     'per_page' => 5
@@ -489,7 +533,8 @@ $billingoApi->api('DocumentBlock')->list([
 ```
 
 List banks accounts:
-``` php
+
+```php
 $billingoApi->api('BankAccount')->list([
     'page' => 1,
     'per_page' => 5
@@ -497,7 +542,8 @@ $billingoApi->api('BankAccount')->list([
 ```
 
 List products:
-``` php
+
+```php
 $billingoApi->api('Products')->list([
     'page' => 1,
     'per_page' => 5
@@ -508,26 +554,29 @@ $billingoApi->api('Products')->list([
 
 #### Laravel
 
-Default path is: ``` ./storage/app/invoices ```
+Default path is: `./storage/app/invoices`
 
-Default extension is: ``` .pdf ```
+Default extension is: `.pdf`
 
 File name is invoice id.
 
 Return the path in the response, eg.:
-``` php
+
+```php
 path: "invoices/11246867.pdf"
 ```
 
 Download invoice:
-``` php
+
+```php
 BillingoApi::api('Document')->downloadInvoice(INVOICE_ID)->getResponse();
 ```
 
 OR
 
 Download to specified path and extension:
-``` php
+
+```php
 BillingoApi::api('Document')->downloadInvoice(INVOICE_ID, 'PATH', 'EXTENSION')->getResponse();
 ```
 
@@ -538,7 +587,8 @@ Come in version 1.1.
 ### Send invoice in e-mail example:
 
 Return the e-mails array where to send the invoce, eg.:
-``` php
+
+```php
 emails: [
     "kiss@kft.hu"
 ]
@@ -547,21 +597,24 @@ emails: [
 #### Laravel
 
 Send invoice:
-``` php
+
+```php
 BillingoApi::api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 ```
 
 #### PHP
 
 Send invoice:
-``` php
+
+```php
 $billingoApi->api('Document')->sendInvoice(INVOICE_ID)->getResponse();
 ```
 
 ### Get invoice public url example:
 
 Return the public url array, eg.:
-``` php
+
+```php
 [
     public_url: "https://api.billingo.hu/document-access/K3drE0Gvb2eRwQNYlypfasdOlJADB4Y"
 ]
@@ -570,14 +623,16 @@ Return the public url array, eg.:
 #### Laravel
 
 Get invoice public url:
-``` php
+
+```php
 BillingoApi::api('Document')->getPublicUrl(INVOICE_ID)->getResponse();
 ```
 
 #### PHP
 
 Get invoice public url:
-``` php
+
+```php
 $billingoApi->api('Document')->getPublicUrl(INVOICE_ID)->getResponse();
 ```
 
@@ -586,14 +641,16 @@ $billingoApi->api('Document')->getPublicUrl(INVOICE_ID)->getResponse();
 #### Laravel
 
 Cancel invoice:
-``` php
+
+```php
 BillingoApi::api('Document')->cancelInvoice(INVOICE_ID)->getResponse();
 ```
 
 #### PHP
 
 Cancel invoice:
-``` php
+
+```php
 $billingoApi->api('Document')->cancelInvoice(INVOICE_ID)->getResponse();
 ```
 
@@ -602,14 +659,16 @@ $billingoApi->api('Document')->cancelInvoice(INVOICE_ID)->getResponse();
 #### Laravel
 
 Create invoice from proforma invoice:
-``` php
+
+```php
 BillingoApi::api('Document')->createInvoiceFromProforma(INVOICE_ID)->getResponse();
 ```
 
 #### PHP
 
 Create invoice from proforma invoice:
-``` php
+
+```php
 $billingoApi->api('Document')->createInvoiceFromProforma(INVOICE_ID)->getResponse();
 ```
 
@@ -620,14 +679,16 @@ First set up your NAV connection in your billingo account, because it always ret
 #### Laravel
 
 Check tax number:
-``` php
+
+```php
 BillingoApi::api('Util')->checkTaxNumber('tax_number')->getResponse();
 ```
 
 #### PHP
 
 Check tax number:
-``` php
+
+```php
 $billingoApi->api('Util')->checkTaxNumber('tax_number')->getResponse();
 ```
 
@@ -636,61 +697,70 @@ $billingoApi->api('Util')->checkTaxNumber('tax_number')->getResponse();
 #### Laravel
 
 Get invoice:
-``` php
+
+```php
 BillingoApi::api('Document')->get(INVOICE_ID)->getResponse();
 ```
 
 Get partner:
-``` php
+
+```php
 BillingoApi::api('Partner')->get(PARTNER_ID)->getResponse();
 ```
 
 Get product:
-``` php
+
+```php
 BillingoApi::api('Product')->get(PRODUCT_ID)->getResponse();
 ```
 
 #### PHP
 
 Get invoice:
-``` php
+
+```php
 $billingoApi->api('Document')->get(INVOICE_ID)->getResponse();
 ```
 
 Get partner:
-``` php
+
+```php
 $billingoApi->api('Partner')->get(PARTNER_ID)->getResponse();
 ```
 
 Get product:
-``` php
+
+```php
 $billingoApi->api('Product')->get(PRODUCT_ID)->getResponse();
 ```
-
 
 ### Delete product, partner example:
 
 #### Laravel
 
 Delete partner:
-``` php
+
+```php
 BillingoApi::api('Partner')->delete(PARTNER_ID)->getResponse();
 ```
 
 Delete product:
-``` php
+
+```php
 BillingoApi::api('Product')->get(PRODUCT_ID)->getResponse();
 ```
 
 #### PHP
 
 Delete partner:
-``` php
+
+```php
 $billingoApi->api('Partner')->delete(PARTNER_ID)->getResponse();
 ```
 
 Delete product:
-``` php
+
+```php
 $billingoApi->api('Product')->get(PRODUCT_ID)->getResponse();
 ```
 
@@ -699,14 +769,16 @@ $billingoApi->api('Product')->get(PRODUCT_ID)->getResponse();
 #### Laravel
 
 Get partner:
-``` php
+
+```php
 BillingoApi::api('Partner')->deletePayment(PAYMENT_ID)->getResponse();
 ```
 
 #### PHP
 
 Get partner:
-``` php
+
+```php
 $billingoApi->api('Partner')->deletePayment(PAYMENT_ID)->getResponse();
 ```
 
@@ -715,22 +787,25 @@ $billingoApi->api('Partner')->deletePayment(PAYMENT_ID)->getResponse();
 #### Laravel
 
 With http info:
-``` php
+
+```php
 BillingoApi::api('Product')->withHttpInfo()->list(['page' => 1, 'per_page' => 5])->getResponse();
 ```
 
 #### PHP
 
 With http info:
-``` php
+
+```php
 $billingoApi->api('Product')->withHttpInfo()->list(['page' => 1, 'per_page' => 5])->getResponse();
 ```
 
 ## Testing
 
-First set up your Billingo API V3 Key in ```config/config.php``` file.
+First set up your Billingo API V3 Key in `config/config.php` file.
 
 Linux, MAC OS
+
 ```
 $ ./vendor/bin/phpunit
 ```
@@ -741,8 +816,8 @@ OR
 $ composer test
 ```
 
-
 Windows
+
 ```
 $ vendor\bin\phpunit
 ```
@@ -763,8 +838,8 @@ If you discover any security related issues, please email david.molnar.mega@gmai
 
 ## Credits
 
-- [David Molnar](https://github.com/deviddev)
-- [All Contributors](../../contributors)
+-   [David Molnar](https://github.com/deviddev)
+-   [All Contributors](../../contributors)
 
 ## License
 
