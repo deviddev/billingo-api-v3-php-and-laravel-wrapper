@@ -20,7 +20,7 @@
     "require": {
         "php": ">=7.4",
         "illuminate/support": "^6|^8",
-        "deviddev/billingo-api-v3-php-sdk": "^0.2.5"
+        "deviddev/billingo-api-v3-php-sdk": "^0.2"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
