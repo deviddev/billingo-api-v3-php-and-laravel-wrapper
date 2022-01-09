@@ -11,7 +11,7 @@ Compatible with: Laravel 6.x (LTS), Laravel 8.x or PHP 7.4<=
 You can install the package via composer or just download it:
 
 ```bash
-composer require deviddev/billingo-api-v3-wrapper:^1.0
+composer require deviddev/billingo-api-v3-wrapper
 ```
 
 # Usage
@@ -20,7 +20,7 @@ composer require deviddev/billingo-api-v3-wrapper:^1.0
 
 Publish config file:
 
-`php artisan vendor:publish --provider=Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider`
+`php artisan vendor:publish --provider=Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider --tag="config"`
 
 **First set up your Billingo API V3 key in ./config/billingo-api-v3-wrapper.php config file.**
 
