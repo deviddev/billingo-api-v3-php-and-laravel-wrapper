@@ -27,13 +27,17 @@ trait ProcessErrorsTrait
     }
 
     /**
-     * Get error message json response
+     * Get error message response
      *
      * @return string
      */
-    public function getJson(): string
+    public function response(): string
     {
-        return \json_encode(\json_decode($this->getJsonFromErrorString(), true), JSON_FORCE_OBJECT);
+        if ($this->isJson($this->error)) {
+            return \json_encode(\json_decode($this->getJsonFromErrorString(), true), JSON_FORCE_OBJECT);
+        }
+
+        return $this->error;
     }
 
     /**
@@ -48,5 +52,18 @@ trait ProcessErrorsTrait
             strpos($this->error, "{"),
             strpos($this->error, "}")
         );
+    }
+
+    /**
+     * Check that error string is json encoded
+     *
+     * @param string $error
+     *
+     * @return bool
+     */
+    public function isJson(string $error): bool
+    {
+        json_decode($error);
+        return json_last_error() === JSON_ERROR_NONE;
     }
 }

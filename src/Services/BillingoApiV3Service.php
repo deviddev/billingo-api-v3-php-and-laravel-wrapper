@@ -125,7 +125,7 @@ class BillingoApiV3Service
                     $params
                 );
         } catch (\Throwable $th) {
-            echo ($this->error($th->getMessage())->getJson());
+            echo ($this->error($th->getMessage())->response());
             exit;
         }
 
