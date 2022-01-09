@@ -11,7 +11,7 @@ Compatible with: Laravel 6.x (LTS), Laravel 8.x or PHP 7.4<=
 You can install the package via composer or just download it:
 
 ```bash
-composer require deviddev/billingo-api-v3-wrapper
+composer require deviddev/billingo-api-v3-wrapper:2.0.5
 ```
 
 # Usage
