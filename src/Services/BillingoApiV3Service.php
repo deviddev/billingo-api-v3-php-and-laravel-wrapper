@@ -80,7 +80,7 @@ class BillingoApiV3Service
     }
 
     /**
-     * Check that config helper funcion is exists, this is laravel specific
+     * Check that config helper function is exists, this is laravel specific
      *
      * @return boolean
      */
@@ -90,7 +90,7 @@ class BillingoApiV3Service
     }
 
     /**
-     * Check if given class is exsits.
+     * Check if given class is exists.
      *
      * @param string $className
      *
@@ -100,7 +100,7 @@ class BillingoApiV3Service
     protected function classExists(string $className): void
     {
         if (!class_exists($className)) {
-            throw new Exception($className . ' class does not exsits!');
+            throw new Exception($className . ' class does not exists!');
         }
     }
 
@@ -142,13 +142,13 @@ class BillingoApiV3Service
      */
     protected function isData(array $data = null): void
     {
-        if (is_null($this->data) and is_null($data)) {
+        if (is_null($this->data) && is_null($data)) {
             throw new Exception('Data not set!');
         }
     }
 
     /**
-     * Check if gicen method exists in given class (api instance)
+     * Check if given method exists in given class (api instance)
      *
      * @param string $methodName
      *
@@ -172,7 +172,15 @@ class BillingoApiV3Service
      */
     protected function setMethodName(string $name, bool $suffix = false): string
     {
-        $methodName = $name . ($suffix ? $this->apiName . ($this->withHttpInfo ? 'withHttpInfo' : '') : '');
+        $methodName = $name;
+
+        if ($suffix) {
+            $methodName .= $this->apiName;
+
+            if ($this->withHttpInfo) {
+                $methodName .= 'withHttpInfo';
+            }
+        }
 
         $this->methodExists($methodName);
 
@@ -198,7 +206,7 @@ class BillingoApiV3Service
     }
 
     /**
-     * Mapping array and if it's conatins object convert it to array because swagger return mixed arrays and objects with protected and private properties
+     * Mapping array and if it's contains object convert it to array because swagger return mixed arrays and objects with protected and private properties
      *
      * @param array $item
      *
@@ -218,7 +226,7 @@ class BillingoApiV3Service
     }
 
     /**
-     * Make a new api instace
+     * Make a new api instance
      *
      * @param string $name
      *
@@ -252,7 +260,7 @@ class BillingoApiV3Service
     }
 
     /**
-     * Get repsonse
+     * Get response
      *
      * @return Array
      */
