@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "illuminate/support": "^6|^8",
+        "illuminate/support": "^6|^8|^9",
         "deviddev/billingo-api-v3-php-sdk": "^0.2.6"
     },
     "require-dev": {

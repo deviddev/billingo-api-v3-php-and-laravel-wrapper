@@ -2,7 +2,7 @@
 
 This is a simple Laravel (PHP) wrapper for Billingo (billingo.hu) API V3 SwaggerHUB PHP SDK.
 
-Compatible with: Laravel 6.x (LTS), Laravel 8.x or PHP 7.4<=
+Compatible with: Laravel 6.x (LTS), Laravel 8.x and 9.x or PHP 7.4<=
 
 **You can use the wrapper easily with all type of PHP projects (not just Laravel) from 1.0.0 version without changing except downloadInvoice method.**
 
