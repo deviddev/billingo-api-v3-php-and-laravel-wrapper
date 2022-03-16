@@ -109,7 +109,8 @@ class BillingoApiV3Service
      *
      * @param string $methodName
      * @param array $params
-     * @param boolean $customResponse
+     * @param bool $methodSuffix
+     * @param bool $customResponse
      *
      * @return void
      */
@@ -125,7 +126,7 @@ class BillingoApiV3Service
                     $params
                 );
         } catch (\Throwable $th) {
-            echo ($this->error($th->getMessage())->response());
+            echo $this->error($th->getMessage())->response();
             exit;
         }
 
@@ -216,6 +217,9 @@ class BillingoApiV3Service
     {
         return \array_map(function ($item) {
             if (\is_object($item)) {
+                if ($item instanceof \DateTime) {
+                    return $item->format('Y-m-d');
+                }
                 return Arr::collapse((array)$item);
             }
             if (\is_array($item)) {
