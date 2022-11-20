@@ -254,6 +254,16 @@ class BillingoApiV3Service
     }
 
     /**
+     * Get the underlaying Swagger API Object
+     *
+     * @return Swagger\Client\Api\$Object
+     */
+    public function getApi()
+    {
+        return $this->api;
+    }
+
+    /**
      * Get id from response
      *
      * @return integer
