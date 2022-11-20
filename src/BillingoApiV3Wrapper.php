@@ -132,7 +132,10 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
             $this->response[0]
         );
 
-        $this->response = ['path' => ($path ?? $this->downloadPath) . $filename];
+        $this->response = [
+            'path' => ($path ?? $this->downloadPath) . $filename,
+            'status' => $this->withHttpInfo ? $this->response[1] : null,
+        ];
 
         return $this;
     }
