@@ -2,7 +2,7 @@
 
 This is a simple Laravel (PHP) wrapper for Billingo (billingo.hu) API V3 SwaggerHUB PHP SDK.
 
-Compatible with: Laravel 6.x (LTS), Laravel 8.x and 9.x or PHP 7.4<=
+Compatible with: Laravel 8.x, 9.x and 10.x or PHP 8.1<=
 
 **You can use the wrapper easily with all type of PHP projects (not just Laravel) from 1.0.0 version without changing except downloadInvoice method.**
 
@@ -20,7 +20,7 @@ composer require deviddev/billingo-api-v3-wrapper
 
 Publish config file:
 
-`php artisan vendor:publish --provider=Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider --tag="config"`
+`php artisan vendor:publish --tag="billingo-config"`
 
 **First set up your Billingo API V3 key in ./config/billingo-api-v3-wrapper.php config file.**
 
