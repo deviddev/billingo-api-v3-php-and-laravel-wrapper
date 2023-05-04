@@ -3,9 +3,10 @@
 namespace Deviddev\BillingoApiV3Wrapper\Services;
 
 use Exception;
-use Deviddev\BillingoApiV3Wrapper\Traits\ProcessErrorsTrait;
 use Illuminate\Support\Arr;
 use Swagger\Client\Configuration as SwaggerConfig;
+use Deviddev\BillingoApiV3Wrapper\Traits\ProcessErrorsTrait;
+use Deviddev\BillingoApiV3Wrapper\Exceptions\BillingoApiException;
 
 class BillingoApiV3Service
 {
@@ -126,8 +127,9 @@ class BillingoApiV3Service
                     $params
                 );
         } catch (\Throwable $th) {
-            echo $this->error($th->getMessage())->response();
-            exit;
+            $message = $this->error($th->getMessage())->response();
+
+            throw new BillingoApiException($message);
         }
 
         $this->setResponse();
