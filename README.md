@@ -443,17 +443,17 @@ List invoices:
 ```php
 BillingoApi::api('Document')->list([
     'page' => 1,
-    'page' => 25,
+    'per_page' => 25,
     'block_id' => 42432,
     'partner_id' => 13123123,
     'payment_method' => 'cash',
     'payment_status' => 'paid',
-    'start_date'] => '2020-05-10',
+    'start_date' => '2020-05-10',
     'end_date' => '2020-05-15',
     'start_number' => '1',
     'end_number' => '10',
     'start_year' => 2020,
-    'end_year'] => 2020
+    'end_year' => 2020
 ])->getResponse();
 ```
 
@@ -463,6 +463,16 @@ List partners:
 BillingoApi::api('Partner')->list([
     'page' => 1,
     'per_page' => 5
+])->getResponse();
+```
+
+List partners with query string:
+
+```php
+BillingoApi::api('Partner')->list([
+    'page' => 1,
+    'per_page' => 5,
+    'query' => 'Teszt partner'
 ])->getResponse();
 ```
 
@@ -500,17 +510,17 @@ List invoices:
 ```php
 $billingoApi->api('Document')->list([
     'page' => 1,
-    'page' => 25,
+    'per_page' => 25,
     'block_id' => 42432,
     'partner_id' => 13123123,
     'payment_method' => 'cash',
     'payment_status' => 'paid',
-    'start_date'] => '2020-05-10',
+    'start_date' => '2020-05-10',
     'end_date' => '2020-05-15',
     'start_number' => '1',
     'end_number' => '10',
     'start_year' => 2020,
-    'end_year'] => 2020
+    'end_year' => 2020
 ])->getResponse();
 ```
 
@@ -520,6 +530,16 @@ List partners:
 $billingoApi->api('Partner')->list([
     'page' => 1,
     'per_page' => 5
+])->getResponse();
+```
+
+List partners with query string:
+
+```php
+$billingoApi->api('Partner')->list([
+    'page' => 1,
+    'per_page' => 5,
+    'query' => 'Teszt partner'
 ])->getResponse();
 ```
 

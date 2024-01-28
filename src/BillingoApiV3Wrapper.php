@@ -191,7 +191,8 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
                 $conditions['start_number'] ?? null,
                 $conditions['end_number'] ?? null,
                 $conditions['start_year'] ?? null,
-                $conditions['end_year'] ?? null
+                $conditions['end_year'] ?? null,
+                $conditions['query'] ?? null
             ],
             true
         );
