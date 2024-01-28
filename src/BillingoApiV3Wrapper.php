@@ -179,7 +179,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     {
         $this->createResponse(
             'list',
-            [
+            array_values(array_filter([
                 $conditions['page'] ?? null,
                 $conditions['per_page'] ?? 25,
                 $conditions['block_id'] ?? null,
@@ -192,8 +192,9 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
                 $conditions['end_number'] ?? null,
                 $conditions['start_year'] ?? null,
                 $conditions['end_year'] ?? null,
+                $conditions['type'] ?? null,
                 $conditions['query'] ?? null
-            ],
+            ])),
             true
         );
 
