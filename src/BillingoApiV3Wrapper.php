@@ -6,6 +6,9 @@ use Deviddev\BillingoApiV3Wrapper\Services\BillingoApiV3Service;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
+use function array_diff_key;
+use function array_flip;
+
 class BillingoApiV3Wrapper extends BillingoApiV3Service
 {
     /**
@@ -21,6 +24,13 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      * @var string
      */
     protected $extension = '.pdf';
+    
+    /**
+     * In list method only allow these parameters
+     *
+     * @var array|string[]
+     */
+    protected array $allowed_parameters=['page','per_page','block_id','partner_id','payment_method','payment_status','start_date','end_date','start_number','end_number','start_year','type','query'];
 
     /**
      * Call parent constructor
@@ -179,22 +189,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     {
         $this->createResponse(
             'list',
-            array_values(array_filter([
-                $conditions['page'] ?? null,
-                $conditions['per_page'] ?? 25,
-                $conditions['block_id'] ?? null,
-                $conditions['partner_id'] ?? null,
-                $conditions['payment_method'] ?? null,
-                $conditions['payment_status'] ?? null,
-                $conditions['start_date'] ?? null,
-                $conditions['end_date'] ?? null,
-                $conditions['start_number'] ?? null,
-                $conditions['end_number'] ?? null,
-                $conditions['start_year'] ?? null,
-                $conditions['end_year'] ?? null,
-                $conditions['type'] ?? null,
-                $conditions['query'] ?? null
-            ])),
+            array_diff_key($conditions, array_diff_key($conditions, array_flip($this->allowed_parameters))),
             true
         );
 
