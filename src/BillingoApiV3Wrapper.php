@@ -274,7 +274,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      */
     public function getOnlineSzamlaStatus(int $id): self
     {
-        $this->createResponse('getOnlineSzamlaStatus', [$id], true);
+        $this->createResponse('getOnlineSzamlaStatus', [$id]);
 
         return $this;
     }
