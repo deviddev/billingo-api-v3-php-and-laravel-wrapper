@@ -6,6 +6,9 @@ use Deviddev\BillingoApiV3Wrapper\Services\BillingoApiV3Service;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
+use function array_diff_key;
+use function array_flip;
+
 class BillingoApiV3Wrapper extends BillingoApiV3Service
 {
     /**
@@ -21,6 +24,13 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
      * @var string
      */
     protected $extension = '.pdf';
+    
+    /**
+     * In list method only allow these parameters
+     *
+     * @var array|string[]
+     */
+    protected array $allowed_parameters=['page','per_page','block_id','partner_id','payment_method','payment_status','start_date','end_date','start_number','end_number','start_year','end_year','type','query','paid_start_date','paid_end_date','fulfillment_start_date','fulfillment_end_date','last_modified_date','from','to','date','q','spending_date','spending_type','categories','currencies','payment_methods'];
 
     /**
      * Call parent constructor
@@ -72,6 +82,19 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
 
         return $this;
     }
+    
+    /**
+     * Call createReceipt method
+     *
+     * @throws Exception (methodExists)
+     * @return self
+     */
+    public function createReceipt(): self
+    {
+        $this->createResponse('createReceipt', [$this->model], true);
+
+        return $this;
+    }
 
     /**
      * Create invoice from proforma
@@ -83,6 +106,34 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     public function createInvoiceFromProforma(int $id): self
     {
         $this->createResponse('createDocumentFromProforma', [$id]);
+
+        return $this;
+    }
+
+    /**
+     * Create invoice from draft
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function createInvoiceFromDraft(int $id): self
+    {
+        $this->createResponse('createDocumentFromDraft', [$id]);
+
+        return $this;
+    }
+
+    /**
+     * Create receipt from draft
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function createReceiptFromDraft(int $id): self
+    {
+        $this->createResponse('createReceiptFromDraft', [$id]);
 
         return $this;
     }
@@ -179,22 +230,7 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     {
         $this->createResponse(
             'list',
-            array_values(array_filter([
-                $conditions['page'] ?? null,
-                $conditions['per_page'] ?? 25,
-                $conditions['block_id'] ?? null,
-                $conditions['partner_id'] ?? null,
-                $conditions['payment_method'] ?? null,
-                $conditions['payment_status'] ?? null,
-                $conditions['start_date'] ?? null,
-                $conditions['end_date'] ?? null,
-                $conditions['start_number'] ?? null,
-                $conditions['end_number'] ?? null,
-                $conditions['start_year'] ?? null,
-                $conditions['end_year'] ?? null,
-                $conditions['type'] ?? null,
-                $conditions['query'] ?? null
-            ])),
+            array_diff_key($conditions, array_diff_key($conditions, array_flip($this->allowed_parameters))),
             true
         );
 
@@ -225,6 +261,20 @@ class BillingoApiV3Wrapper extends BillingoApiV3Service
     public function sendInvoice(int $id): self
     {
         $this->createResponse('send', [$id], true);
+
+        return $this;
+    }
+    
+    /**
+     * Send invoice in email
+     *
+     * @param integer $id
+     *
+     * @return self
+     */
+    public function getOnlineSzamlaStatus(int $id): self
+    {
+        $this->createResponse('getOnlineSzamlaStatus', [$id]);
 
         return $this;
     }

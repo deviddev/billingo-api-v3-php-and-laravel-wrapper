@@ -96,6 +96,12 @@ Create model (call api class method with model instance):
 create();
 ```
 
+Create Receipt on Document model:
+
+```php
+createReceipt();
+```
+
 Update model (call api class method with model instance and model id):
 
 ```php
@@ -112,6 +118,18 @@ Create invoice from proforma invoice:
 
 ```php
 createInvoiceFromProforma(int $invoiceId);
+```
+
+Create invoice from draft invoice:
+
+```php
+createInvoiceFromDraft(int $invoiceId);
+```
+
+Create receipt from draft invoice:
+
+```php
+createReceiptFromDraft(int $invoiceId);
 ```
 
 Check tax number:
@@ -138,6 +156,12 @@ Send invoice in email:
 
 ```php
 sendInvoice(int $invoiceId);
+```
+
+Get invoice Online Számla status:
+
+```php
+getOnlineSzamlaStatus(int $invoiceId);
 ```
 
 Get invoice public url response:
@@ -434,6 +458,97 @@ Create invoice with make and get invoice id:
 $billingo->api('Document')->make($invoice)->model('DocumentInsert')->create()->getId();
 ```
 
+### Create receipt example:
+
+Receipt array:
+
+```php
+$receipt = [
+    'partner_id' => BILLINGO_PARTNER_ID, // REQUIRED int
+    'block_id' => YOUR_BILLINGO_BLOCK_ID, // REQUIRED int
+    'type' => 'receipt', // REQUIRED
+    'payment_method' => 'online_bankcard', // REQUIRED, see other types in billingo documentation
+    'currency' => 'HUF', // REQUIRED, see others in billingo documentation
+    'conversion_rate' => 1, // see others in billingo documentation
+    'electronic' => false, // see others in billingo documentation
+    'items' =>  [
+        [
+            'name' => 'Laptop', // REQUIRED
+            'unit_price' => '100000', // REQUIRED
+            'vat' => '27%', // REQUIRED
+        ],
+        [
+            'product_id' => YOUR_PRODUCT_ID, // REQUIRED
+        ],
+    ],
+];
+```
+
+#### Laravel
+
+Create receipt and get response:
+
+```php
+BillingoApi::api('Document')->model('ReceiptInsert', $receipt)->create()->getResponse();
+```
+
+OR
+
+Create receipt with make and get response:
+
+```php
+BillingoApi::api('Document')->make($receipt)->model('ReceiptInsert')->create()->getResponse();
+```
+
+OR
+
+Create receipt and get receipt id:
+
+```php
+BillingoApi::api('Document')->model('ReceiptInsert', $receipt)->create()->getId();
+```
+
+OR
+
+Create receipt with make and get receipt id:
+
+```php
+BillingoApi::api('Document')->make($receipt)->model('ReceiptInsert')->create()->getId();
+```
+
+#### PHP
+
+Create receipt and get response:
+
+```php
+$billingo->api('Document')->model('ReceiptInsert', $receipt)->create()->getResponse();
+```
+
+OR
+
+Create receipt with make and get response:
+
+```php
+$billingo->api('Document')->make($receipt)->model('ReceiptInsert')->create()->getResponse();
+```
+
+OR
+
+Create receipt and get receipt id:
+
+```php
+$billingo->api('Document')->model('ReceiptInsert', $receipt)->create()->getId();
+```
+
+OR
+
+Create receipt with make and get receipt id:
+
+```php
+$billingo->api('Document')->make($receipt)->model('ReceiptInsert')->create()->getId();
+```
+
+
 ### List invoices, partners, blocks, etc example:
 
 #### Laravel
@@ -453,7 +568,8 @@ BillingoApi::api('Document')->list([
     'start_number' => '1',
     'end_number' => '10',
     'start_year' => 2020,
-    'end_year' => 2020
+    'end_year' => 2020,
+    'type' => 'invoice'
 ])->getResponse();
 ```
 
@@ -520,7 +636,8 @@ $billingoApi->api('Document')->list([
     'start_number' => '1',
     'end_number' => '10',
     'start_year' => 2020,
-    'end_year' => 2020
+    'end_year' => 2020,
+    'type' => 'invoice'
 ])->getResponse();
 ```
 
@@ -690,6 +807,39 @@ Create invoice from proforma invoice:
 
 ```php
 $billingoApi->api('Document')->createInvoiceFromProforma(INVOICE_ID)->getResponse();
+```
+
+#### Laravel
+
+Create invoice from draft invoice:
+
+```php
+BillingoApi::api('Document')->createInvoiceFromDraft(INVOICE_ID)->getResponse();
+```
+
+#### PHP
+
+Create invoice from draft invoice:
+
+```php
+$billingoApi->api('Document')->createInvoiceFromDraft(INVOICE_ID)->getResponse();
+```
+
+
+#### Laravel
+
+Create receipt from draft invoice:
+
+```php
+BillingoApi::api('Document')->createReceiptFromDraft(INVOICE_ID)->getResponse();
+```
+
+#### PHP
+
+Create receipt from draft invoice:
+
+```php
+$billingoApi->api('Document')->createReceiptFromDraft(INVOICE_ID)->getResponse();
 ```
 
 ### Check tax number example:
