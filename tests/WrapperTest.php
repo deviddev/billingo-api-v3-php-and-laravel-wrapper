@@ -6,7 +6,7 @@ use Orchestra\Testbench\TestCase;
 use Deviddev\BillingoApiV3Wrapper\BillingoApiV3WrapperServiceProvider;
 use Deviddev\BillingoApiV3Wrapper\BillingoApiV3Wrapper as Billingo;
 
-class ExampleTest extends TestCase
+class WrapperTest extends TestCase
 {
 
     /**
