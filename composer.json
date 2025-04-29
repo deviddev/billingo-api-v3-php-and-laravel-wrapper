@@ -19,12 +19,12 @@
     ],
     "require": {
         "php": "^8.1",
-        "illuminate/support": "^8|^9|^10|^11",
+        "illuminate/support": "^11|^12",
         "deviddev/billingo-api-v3-php-sdk": "^0.2.6"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.0"
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0"
     },
     "autoload": {
         "psr-4": {
