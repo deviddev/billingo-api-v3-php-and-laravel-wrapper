@@ -1,8 +1,14 @@
+# Latest Changelog
+
+v2.2 -> v2.3.1
+Drop support: Laravel 8, 9, 10 and PHP 8.1
+Add support: Laravel 12 and PHP 8.2
+
 # Billingo API V3 Laravel and PHP Wrapper
 
 This is a simple Laravel (PHP) wrapper for Billingo (billingo.hu) API V3 SwaggerHUB PHP SDK.
 
-Compatible with: Laravel 8.x, 9.x and 10.x or PHP 8.1<=
+Compatible with: Laravel 11.x and 12.x or PHP 8.2<=
 
 **You can use the wrapper easily with all type of PHP projects (not just Laravel) from 1.0.0 version without changing except downloadInvoice method.**
 
@@ -548,7 +554,6 @@ Create receipt with make and get receipt id:
 $billingo->api('Document')->make($receipt)->model('ReceiptInsert')->create()->getId();
 ```
 
-
 ### List invoices, partners, blocks, etc example:
 
 #### Laravel
@@ -824,7 +829,6 @@ Create invoice from draft invoice:
 ```php
 $billingoApi->api('Document')->createInvoiceFromDraft(INVOICE_ID)->getResponse();
 ```
-
 
 #### Laravel
 
