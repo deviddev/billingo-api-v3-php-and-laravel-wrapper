@@ -1,5 +1,8 @@
 # Latest Changelog
 
+v2.3.1 -> v2.4.0
+Add support: Laravel 13
+
 v2.2 -> v2.3.1
 Drop support: Laravel 8, 9, 10 and PHP 8.1
 Add support: Laravel 12 and PHP 8.2
@@ -1012,8 +1015,8 @@ If you discover any security related issues, please email david.molnar.mega@gmai
 
 ## Credits
 
--   [David Molnar](https://github.com/deviddev)
--   [All Contributors](../../contributors)
+- [David Molnar](https://github.com/deviddev)
+- [All Contributors](../../contributors)
 
 ## License
 
